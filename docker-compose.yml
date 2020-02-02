@@ -1,0 +1,16 @@
+version: "3.1"
+
+services:
+
+  webserver:
+    build: docker/apache/7.3
+    container_name: www_app
+    working_dir: /var/www/html
+    volumes:
+      - ./public:/var/www/html
+      - ./apache/ssl:/etc/ssl/private
+      - ./apache/conf-enabled/remoteip.conf:/etc/apache2/conf-enabled/remoteip.conf
+      - ./apache/sites-enabled/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+    ports:
+      - "80:80"
+      - "443:443"
