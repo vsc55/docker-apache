@@ -9,6 +9,8 @@ RUN a2enmod headers; \
     a2enmod remoteip; \
     a2enmod ssl; \
     a2enmod ldap; \
+    a2enmod dav; \
+    a2enmod dav_fs; \
     docker-php-ext-install mysqli;
 
 RUN chmod 777 -R /var/www; \
