@@ -1,6 +1,10 @@
 FROM php:7.3-apache
 
-LABEL version="1.0" maintainer="vsc55@cerebelum.net" description="Docker Apache + PHP 7.3"
+LABEL version="1.0" maintainer="vsc55@cerebelum.net" description="Docker Apache + PHP 7.3 + Client MySQL + Imagick"
+
+RUN apt-get update; \
+    apt-get install -y libmagickwand-dev --no-install-recommends; \
+    rm -rf /var/lib/apt/lists/*;
 
 RUN a2enmod headers; \
     a2enmod proxy_http; \
@@ -11,8 +15,9 @@ RUN a2enmod headers; \
     a2enmod ldap; \
     a2enmod dav; \
     a2enmod dav_fs; \
-    docker-php-ext-install mysqli; \
-	docker-php-ext-install imagick;
+    docker-php-ext-install mysqli; \	
+    printf "\n" | pecl install imagick; \
+    docker-php-ext-enable imagick;
 
 RUN chmod 777 -R /var/www; \
     chown -R www-data:www-data /var/www; \
