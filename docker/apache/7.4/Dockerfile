@@ -1,6 +1,6 @@
-FROM php:7.3-apache
+FROM php:7.4-apache
 
-LABEL version="1.0" maintainer="vsc55@cerebelum.net" description="Docker Apache + PHP 7.3 + Client MySQL + Imagick"
+LABEL version="1.0" maintainer="vsc55@cerebelum.net" description="Docker Apache + PHP 7.4 + Client MySQL + Imagick"
 
 RUN a2enmod headers; \
     a2enmod proxy_http; \
