@@ -2,10 +2,6 @@ FROM php:7.4.1-apache
 
 LABEL version="1.0" maintainer="vsc55@cerebelum.net" description="Docker Apache + PHP 7.4.1 + Client MySQL + Imagick"
 
-RUN apt-get update; \
-    apt-get install -y libmagickwand-dev --no-install-recommends; \
-    rm -rf /var/lib/apt/lists/*;
-
 RUN a2enmod headers; \
     a2enmod proxy_http; \
     a2enmod rewrite; \
@@ -14,10 +10,18 @@ RUN a2enmod headers; \
     a2enmod ssl; \
     a2enmod ldap; \
     a2enmod dav; \
-    a2enmod dav_fs; \
-    docker-php-ext-install mysqli; \	
-    printf "\n" | pecl install imagick; \
-    docker-php-ext-enable imagick;
+    a2enmod dav_fs;
+
+RUN docker-php-ext-install mysqli;
+
+RUN apt-get update; \
+    apt-get install -y libmagickwand-dev --no-install-recommends; \
+    rm -rf /var/lib/apt/lists/*; \
+    pecl install imagick; \
+    docker-php-ext-enable imagick; \
+    apt-get remove -y libmagickwand-dev; \
+    apt-get install -y libmagickwand; \
+    apt-get autoremove -y;
 
 RUN chmod 777 -R /var/www; \
     chown -R www-data:www-data /var/www; \
