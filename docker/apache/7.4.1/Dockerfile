@@ -18,11 +18,8 @@ RUN apt-get update; \
     apt-get install -y libmagickwand-dev --no-install-recommends; \
     rm -rf /var/lib/apt/lists/*; \
     pecl install imagick; \
-    docker-php-ext-enable imagick; \
-    apt-get remove -y libmagickwand-dev; \
-    apt-get install -y libmagickwand; \
-    apt-get autoremove -y;
-
+    docker-php-ext-enable imagick;
+    
 RUN chmod 777 -R /var/www; \
     chown -R www-data:www-data /var/www; \
     usermod -u 1000 www-data; \
