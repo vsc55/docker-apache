@@ -11,7 +11,8 @@ RUN a2enmod headers; \
     a2enmod ldap; \
     a2enmod dav; \
     a2enmod dav_fs; \
-    docker-php-ext-install mysqli;
+    docker-php-ext-install mysqli; \
+	docker-php-ext-install imagick;
 
 RUN chmod 777 -R /var/www; \
     chown -R www-data:www-data /var/www; \
