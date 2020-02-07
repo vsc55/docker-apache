@@ -15,8 +15,9 @@ RUN a2enmod headers; \
 RUN docker-php-ext-install mysqli;
 
 RUN apt-get update; \
-    apt-get install -y sendmail --no-install-recommends; \
-    rm -rf /var/lib/apt/lists/*;
+    apt-get install -y ssmtp --no-install-recommends; \
+    rm -rf /var/lib/apt/lists/*; \
+	echo 'sendmail_path = "/usr/sbin/ssmtp -t -i"' > /usr/local/etc/php/conf.d/mail.ini;
 
 RUN apt-get update; \
     apt-get install -y libmagickwand-dev --no-install-recommends; \
