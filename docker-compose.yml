@@ -11,8 +11,7 @@ services:
       - ./apache/ssl:/etc/ssl/private
       - ./apache/conf-enabled/remoteip.conf:/etc/apache2/conf-enabled/remoteip.conf
       - ./apache/sites-enabled/000-default.conf:/etc/apache2/sites-available/000-default.conf
-      - ./ssmtp/ssmtp.conf:/etc/ssmtp/ssmtp.conf
-      - ./ssmtp/revaliases:/etc/ssmtp/revaliases
+      - ./msmtprc/msmtprc.conf:/etc/msmtprc
     ports:
       - "80:80"
       - "443:443"
