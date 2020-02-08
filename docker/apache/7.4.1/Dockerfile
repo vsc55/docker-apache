@@ -15,19 +15,19 @@ RUN a2enmod headers; \
 RUN docker-php-ext-install mysqli;
 
 RUN apt-get update; \
-    apt-get install -y msmtp --no-install-recommends; \
-    rm -rf /var/lib/apt/lists/*; \
-    echo 'sendmail_path = "/usr/bin/msmtp -t"' > /usr/local/etc/php/conf.d/msmtp.ini; \
-    ln -sf /dev/stderr /var/log/msmtp.log;
-
-RUN apt-get update; \
     apt-get install -y libmagickwand-dev --no-install-recommends; \
     rm -rf /var/lib/apt/lists/*; \
     pecl install imagick; \
     docker-php-ext-enable imagick;
+
+RUN apt-get update; \
+    apt-get install -y msmtp --no-install-recommends; \
+    rm -rf /var/lib/apt/lists/*; \
+    echo 'sendmail_path = "/usr/bin/msmtp -t"' > /usr/local/etc/php/conf.d/msmtp.ini;
     
 RUN chmod 777 -R /var/www; \
     chown -R www-data:www-data /var/www; \
+	chown -R www-data:www-data /var/log/apache2; \
     usermod -u 1000 www-data; \
     chsh -s /bin/bash www-data; \
     ln -sf /dev/stdout /var/log/apache2/access.log; \
