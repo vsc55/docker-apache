@@ -14,3 +14,6 @@
 ## Modules PHP:
 * mysqli
 * imagick
+
+## App System
+* msmtp
