@@ -14,8 +14,8 @@
 ## Modules PHP:
 * mysqli
 * imagick
-* exif
-* zip
+* exif (only 7.1.33 & 7.4.1)
+* zip  (only 7.1.33 & 7.4.1)
 
 ## App System
 * msmtp
