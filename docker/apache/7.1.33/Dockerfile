@@ -1,6 +1,6 @@
 FROM php:7.1.33-apache
 
-LABEL version="1.0" maintainer="vsc55@cerebelum.net" description="Docker Apache + PHP 7.1.33 + Client MySQL + Imagick"
+LABEL version="1.0" maintainer="vsc55@cerebelum.net" description="Docker Apache + PHP 7.1.33 + Client MySQL + Imagick + zip + exif"
 
 RUN a2enmod headers; \
     a2enmod proxy_http; \
@@ -21,10 +21,20 @@ RUN apt-get update; \
     docker-php-ext-enable imagick;
 
 RUN apt-get update; \
+    apt-get install -y libzip-dev zip --no-install-recommends; \
+    rm -rf /var/lib/apt/lists/*; \
+    docker-php-ext-install zip;
+
+RUN apt-get update; \
+    apt-get install -y exiftool --no-install-recommends; \
+    rm -rf /var/lib/apt/lists/*; \
+    docker-php-ext-install exif;
+
+RUN apt-get update; \
     apt-get install -y msmtp --no-install-recommends; \
     rm -rf /var/lib/apt/lists/*; \
     echo 'sendmail_path = "/usr/bin/msmtp -t"' > /usr/local/etc/php/conf.d/msmtp.ini;
-    
+
 RUN chmod 777 -R /var/www; \
     chown -R www-data:www-data /var/www; \
 	chown -R www-data:www-data /var/log/apache2; \
