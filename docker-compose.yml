@@ -13,6 +13,7 @@ services:
       - ./apache/sites-enabled/000-default.conf:/etc/apache2/sites-available/000-default.conf
       - ./msmtprc/msmtprc.conf:/etc/msmtprc
       - ./php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - ./php/timezone.ini:/usr/local/etc/php/conf.d/timezone.ini
     ports:
       - "80:80"
       - "443:443"
