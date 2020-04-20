@@ -16,6 +16,7 @@
 * imagick
 * exif (only 7.1.33 & 7.4.1)
 * zip  (only 7.1.33 & 7.4.1)
+* gd   (only 5.6)
 
 ## App System
 * msmtp
