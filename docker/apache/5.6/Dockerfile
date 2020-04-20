@@ -1,6 +1,6 @@
 FROM php:5.6-apache
 
-LABEL version="1.0" maintainer="vsc55@cerebelum.net" description="Docker Apache + PHP 5.6 + Client MySQL + Imagick + zip + exif"
+LABEL version="1.0" maintainer="vsc55@cerebelum.net" description="Docker Apache + PHP 5.6 + Client MySQL + Imagick + zip + exif + gd"
 
 RUN a2enmod headers; \
     a2enmod proxy_http; \
@@ -14,23 +14,29 @@ RUN a2enmod headers; \
 
 RUN docker-php-ext-install mysqli;
 
-RUN apt-get update; \
+RUN apt-get update --fix-missing; \
     apt-get install -y libmagickwand-dev --no-install-recommends; \
     rm -rf /var/lib/apt/lists/*; \
     pecl install imagick; \
     docker-php-ext-enable imagick;
 
-RUN apt-get update; \
+RUN apt-get update --fix-missing; \
     apt-get install -y libzip-dev zip --no-install-recommends; \
     rm -rf /var/lib/apt/lists/*; \
     docker-php-ext-install zip;
 
-RUN apt-get update; \
+RUN apt-get update --fix-missing; \
     apt-get install -y exiftool --no-install-recommends; \
     rm -rf /var/lib/apt/lists/*; \
     docker-php-ext-install exif;
 
-RUN apt-get update; \
+RUN apt-get update --fix-missing; \
+	apt-get install -y libgd-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev --no-install-recommends; \
+	rm -rf /var/lib/apt/lists/*; \
+	docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/; \
+	docker-php-ext-install gd;
+	
+RUN apt-get update --fix-missing; \
     apt-get install -y msmtp --no-install-recommends; \
     rm -rf /var/lib/apt/lists/*; \
     echo 'sendmail_path = "/usr/bin/msmtp -t"' > /usr/local/etc/php/conf.d/msmtp.ini;
