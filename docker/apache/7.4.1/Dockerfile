@@ -39,6 +39,4 @@ RUN chmod 777 -R /var/www; \
     chown -R www-data:www-data /var/www; \
 	chown -R www-data:www-data /var/log/apache2; \
     usermod -u 1000 www-data; \
-    chsh -s /bin/bash www-data; \
-    ln -sf /dev/stdout /var/log/apache2/access.log; \
-    ln -sf /dev/stderr /var/log/apache2/error.log;
+    chsh -s /bin/bash www-data;

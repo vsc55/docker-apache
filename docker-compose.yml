@@ -14,6 +14,7 @@ services:
       - ./msmtprc/msmtprc.conf:/etc/msmtprc
       - ./php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
       - ./php/timezone.ini:/usr/local/etc/php/conf.d/timezone.ini
+      - ./log:/var/log
     ports:
       - "80:80"
       - "443:443"
