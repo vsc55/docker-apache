@@ -18,14 +18,12 @@ RUN apt-get update --fix-missing; \
     apt-get install -y libmagickwand-dev --no-install-recommends; \
     rm -rf /var/lib/apt/lists/*; \
     pecl install imagick; \
-    docker-php-ext-enable imagick; \
-	apt-get purge -y --auto-remove libmagickwand-dev;
+    docker-php-ext-enable imagick;
 
 RUN apt-get update --fix-missing; \
     apt-get install -y libzip-dev zip --no-install-recommends; \
     rm -rf /var/lib/apt/lists/*; \
-    docker-php-ext-install zip; \
-	apt-get purge -y --auto-remove libzip-dev;
+    docker-php-ext-install zip;
 
 RUN apt-get update --fix-missing; \
     apt-get install -y exiftool --no-install-recommends; \
@@ -33,18 +31,16 @@ RUN apt-get update --fix-missing; \
     docker-php-ext-install exif;
 
 RUN apt-get update --fix-missing; \
-	apt-get install -y libgd-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev --no-install-recommends; \
-	rm -rf /var/lib/apt/lists/*; \
-	docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/; \
-	docker-php-ext-install gd; \
-	apt-get purge -y --auto-remove libgd-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev;
+    apt-get install -y libgd-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev --no-install-recommends; \
+    rm -rf /var/lib/apt/lists/*; \
+    docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/; \
+    docker-php-ext-install gd;
 
 RUN apt-get update --fix-missing; \
-	apt-get install -y libldap2-dev --no-install-recommends; \
-	rm -rf /var/lib/apt/lists/*; \
-	docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/; \
-	docker-php-ext-install ldap; \
-	apt-get purge -y --auto-remove libldap2-dev;
+    apt-get install -y libldap2-dev --no-install-recommends; \
+    rm -rf /var/lib/apt/lists/*; \
+    docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/; \
+    docker-php-ext-install ldap;
 
 RUN apt-get update --fix-missing; \
     apt-get install -y msmtp --no-install-recommends; \
@@ -53,8 +49,6 @@ RUN apt-get update --fix-missing; \
 
 RUN chmod 777 -R /var/www; \
     chown -R www-data:www-data /var/www; \
-	chown -R www-data:www-data /var/log/apache2; \
+    chown -R www-data:www-data /var/log/apache2; \
     usermod -u 1000 www-data; \
-    chsh -s /bin/bash www-data; \
-    ln -sf /dev/stdout /var/log/apache2/access.log; \
-    ln -sf /dev/stderr /var/log/apache2/error.log;
+    chsh -s /bin/bash www-data;
