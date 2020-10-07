@@ -1,6 +1,6 @@
 FROM php:7.4.1-apache
 
-LABEL version="1.0" maintainer="vsc55@cerebelum.net" description="Docker Apache + PHP 7.4.1 + Client MySQL + Imagick + zip + exif"
+LABEL version="1.0" maintainer="vsc55@cerebelum.net" description="Docker Apache + PHP 7.4.1 + Client MySQL + Imagick + zip + exif + gd"
 
 RUN a2enmod headers; \
     a2enmod proxy_http; \
@@ -29,6 +29,12 @@ RUN apt-get update; \
     apt-get install -y exiftool --no-install-recommends; \
     rm -rf /var/lib/apt/lists/*; \
     docker-php-ext-install exif;
+
+RUN apt-get update; \
+    apt-get install -y libjpeg62-turbo-dev libpng-dev --no-install-recommends; \
+    rm -rf /var/lib/apt/lists/*; \
+    docker-php-ext-configure gd --with-jpeg; \
+    docker-php-ext-install -j$(nproc) gd;
 
 RUN apt-get update; \
     apt-get install -y msmtp --no-install-recommends; \
